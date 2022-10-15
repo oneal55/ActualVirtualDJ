@@ -2,6 +2,33 @@ import cv2
 import mediapipe as mp
 import time
 import Buttons as btns
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
+import librosa
+import librosa.display
+from IPython.display import Audio
+from pydub import AudioSegment
+from pydub.playback import play
+
+
+song1 = AudioSegment.from_file("test.wav", format="wav")
+song2 = AudioSegment.from_file("BussDown.mp3", format="mp3")
+play(song1)
+# play(song2)
+
+
+#Plotting the wavelengths from the song
+x_1, fs = librosa.load('test.wav')
+
+Audio(x_1, rate=fs);
+
+fig, ax = plt.subplots()
+librosa.display.waveshow(x_1, sr=fs, ax=ax)
+plt.show()
+
+
 
 cap = cv2.VideoCapture(0)
 mphands = mp.solutions.hands
