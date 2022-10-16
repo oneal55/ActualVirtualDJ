@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 import time
-
 import pydub.effects
 
 import Buttons as btns
@@ -22,11 +21,11 @@ song2 = AudioSegment.from_file("BussDown.mp3", format="mp3") - 30
 # librosa.display.waveshow(x_1, sr=fs, ax=ax)
 # plt.show()
 
-wheel1 = []
-cv2.imread("blueTurnTable.png", wheel1)
-
-wheel2 = []
-cv2.imread("purpleTurnTable.png", wheel2)
+# wheel1 = []
+# cv2.imread("blueTurnTable.png", wheel1)
+#
+# wheel2 = []
+# cv2.imread("purpleTurnTable.png", wheel2)
 
 
 def game():
@@ -51,7 +50,7 @@ def game():
     musicWheelLeft = btns.MusicWheel(song1,
                                      0, 0, width // 4, height // 2,
                                      [volumeLeft, leftButtonOne, leftButtonTwo,
-                                      leftButtonThree, leftButtonFour, leftCueButton, leftPauseButton], wheel1)
+                                      leftButtonThree, leftButtonFour, leftCueButton, leftPauseButton])
 
     bpmRight = btns.VerticalSlider(0, 100, width - width // 16, height // 2)
     volumeRight = btns.VerticalSlider(0, 100, width // 2 + width // 16, height // 2)
@@ -64,7 +63,7 @@ def game():
     musicWheelRight = btns.MusicWheel(song2,
                                       0, 0, width - width // 4, height // 2,
                                       [volumeRight, rightButtonOne, rightButtonTwo,
-                                       rightButtonThree, rightButtonFour, rightCueButton, rightPauseButton], wheel2)
+                                       rightButtonThree, rightButtonFour, rightCueButton, rightPauseButton])
 
     masterVolume = btns.HorizontalSlider(0, 100, width // 2, height - 2 * height // 16)
 

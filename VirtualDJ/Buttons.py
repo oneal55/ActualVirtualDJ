@@ -65,7 +65,7 @@ class Button:
 
 
 class MusicWheel:
-    def __init__(self, song: AudioSegment, currentBeat: int, endBeat: int, x: int, y: int, buttonsToCheck, img):
+    def __init__(self, song: AudioSegment, currentBeat: int, endBeat: int, x: int, y: int, buttonsToCheck):
         self.ogSong = song
         self.song = song
         self.currentBeat = currentBeat
@@ -77,7 +77,6 @@ class MusicWheel:
         self.buttonsToCheck = buttonsToCheck
         self.thread = playback._play_with_simpleaudio(self.song)
         self.paused = False
-        self.img = img
 
     def go(self, newTimeDiff):
         if self.paused:
@@ -87,7 +86,6 @@ class MusicWheel:
 
     def draw(self, img):
         height, width, c = img.shape
-        cv2.resize(self.img, width // 7, width //7)
         cv2.circle(img, (self.x, self.y), width // 7, (40, 40, 40), cv2.FILLED)
         for button in self.buttonsToCheck:
             button.draw(img)
@@ -99,7 +97,7 @@ class MusicWheel:
         return False
 
     def handleTouch(self, x, y, img):
-        for button in self.buttonsToCheck[0: 4]:
+        for button in self.buttonsToCheck:
             if not button.beingTouched(x, y, img):
                 button.isColliding = False
 
@@ -112,7 +110,6 @@ class MusicWheel:
         if self.buttonsToCheck[1].beingTouched(x, y, img):
             if not self.buttonsToCheck[1].isColliding:
                 if self.buttonsToCheck[1].on:
-                    print(f"Test: {self.time}")
                     self.thread.stop()
                     self.thread = playback._play_with_simpleaudio(self.song[self.buttonsToCheck[1].index:]
                                                                   + (50 - self.buttonsToCheck[0].current) / 50 * 30)
@@ -172,7 +169,7 @@ class MusicWheel:
                     self.paused = False
                 else:
                     self.paused = True
-                self.buttonsToCheck[-1].handleTouch(x, y, img)
+                self.buttonsToCheck[6].handleTouch(x, y, img)
 
 
 class VerticalSlider:
